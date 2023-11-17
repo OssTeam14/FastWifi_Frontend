@@ -1,51 +1,60 @@
 import './App.css';
 import { useState, useEffect, useRef } from 'react';
+import Map from './Map';
+import Search from './Search';
 
 function App() {
   const [inputword, setWord] = useState("");
   const mapContainer = useRef(null);
   let today = '2023-10-30';
 
-  useEffect(() => {
-    const { naver } = window;
+  const data_lists = [
+    {id: 1, location: '기념', wifi_name: 'Kwangwoon_KT', wifi_speed: '180mbps', measure_time: '17:14 / 231024'},
+    {id: 2, location: '기념', wifi_name: 'amanokw', wifi_speed: 'none', measure_time: 'none'},
+    {id: 3, location: '기념', wifi_name: 'amanokw5G'},
+    {id: 4, location: '기념', wifi_name: 'kw_02열람실01'},
+    {id: 5, location: '기념', wifi_name: 'kw_02열람실02'},
+    {id: 6, location: '기념', wifi_name: 'kw_03열람실03'},
+    {id: 7, location: '기념', wifi_name: 'kw_인문열람실01'},
+    {id: 8, location: '비마', wifi_name: 'Kwangwoon_KT'},
+    {id: 9, location: '기념', wifi_name: 'KW_기념관301_강의실'},
+    {id: 10, location: '기념', wifi_name: 'KW_기념관305_강의실'}
+  ];
 
-    if (naver && naver.maps) {
-      const location = new naver.maps.LatLng(37.61959083843791, 127.06028256642908);
-      const options = {
-        center: location,
-        zoom: 19
-      };
+  //리스트에서 와이파이의 이름만을 보여주는 함수
+  const list_show = data_lists.map ((wifiname) => <li>{wifiname.wifi_name}</li>);
 
-      new naver.maps.Map(mapContainer.current, options);
-    }
-  }, []);
+  // 검색창에서 입력한 단어 확인
+  const [userInput, setUserInput] = useState('');
+  // 대소문자 구별 없애기
+  const getValue = (e) => {
+    setUserInput(e.target.value.toLowerCase())
+  };
+
+  // 필터링
+  const searched = data_lists.filter((item) => item.wifi_name.toLowerCase().includes(userInput))
+  // 필터링된 리스트 보여주기
+  const searched_listshow = searched.map((item) => <p>{item.id} {item.wifi_name}</p>)
+
+  //모달 상태를 저장할 변수와 그 상태를 업데이트 하는 변수
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  //모달을 열거나 닫는 함수
+  const setModalState = (isOpen) => {
+    setIsModalOpen(isOpen);
+  };
 
   return (
     <div className="App">
-      <div className="title" id='border'> 
-        <div className='title_child' id='border'>
-          LOGO
-        </div>
-
-        <div className='title_search'>        
-          <input className='search' 
-            value={inputword}
-            onChange={(e) => setWord(e.target.value)}
-          />
-          <img className='searchname' alt='search' src='img/search.svg' />
-        </div>
-        
-        <img className='menubtn' alt='menu' src='img/menu.svg' />
-      </div>  
+        <Search getValue={getValue} setModalState={setModalState} />
       <div className="main_container" id='border'>
         <div className='main_list' id='border'>
-          LIST
+          <ul>
+            {list_show}
+          </ul>
         </div>
-        <div className='main_map' id='border' ref={mapContainer} style={{ width: '100vw', height: '100vh' }}>
-          {/* The map will be rendered here */}
-        </div>
+        <Map mapContainer={mapContainer} />
         <div className='main_menu' id='border'>
-          RIGHT
+          {searched_listshow}
         </div>
       </div>
       <h4>{ today }</h4>

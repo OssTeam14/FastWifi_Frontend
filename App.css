@@ -26,9 +26,8 @@
 
 .title_search {
   width: 50%;
-  height: 25px;
-  position: relative;
-  margin-bottom: 30px;
+  position: absolute;
+  margin-bottom: 55px;
 }
 
 .searchname {
@@ -41,7 +40,7 @@
 
 .search {
   width: 95%;
-  height: 100%;
+  height: 25px;
   position: absolute;
   border: 3px solid black;
   border-radius: 35px;
@@ -77,6 +76,7 @@
   display: flex;
   width: 15%;
   padding-top: 45vh;
+  text-align: left;
 }
 
 .main_map {
@@ -116,6 +116,7 @@
 .App-link {
   color: #61dafb;
 }
+
 
 @keyframes App-logo-spin {
   from {
