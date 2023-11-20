@@ -93,6 +93,7 @@
 
 .main_list {
   display: flex;
+  margin-left: 10%;
   width: 15%;
   padding-top: 5vh;
   text-align: left;
