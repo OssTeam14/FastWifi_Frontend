@@ -4,14 +4,17 @@ import "bootstrap/scss/bootstrap.scss";
 import Search from './Search';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
+import LoginPage from './LoginPage';
 
 import './App.css';
+import { getSuggestedQuery } from '@testing-library/react';
 
 function App() {
   const [searchResult, setSearchResult] = useState('');
   const [inputWord, setWord] = useState("");
   const [isMenuOpen, setIsMenuOpen] = useState(false); // 메뉴의 활성화 여부 확인 변수
   const [isMapVisible, setIsMapVisible] = useState(true); // 지도의 활성화 여부 확인 변수
+  const [isHomeVisible, setIsHomeVisible] = useState(true); // 로그인 기능 활성화 여부 확인 변수
   const [detailInfo, setDetailInfo] = useState({ title: '', content: '' });
   const mapContainer = useRef(null);
   const mapRef = useRef(null);
@@ -200,50 +203,63 @@ function App() {
     setIsModalOpen(isOpen);
   };
 
-  // 토글 버튼 클릭 시 지도 가시성을 변경하는 함수
-  const toggleMapVisibility = () => {
-    setIsMapVisible(!isMapVisible);
-  };
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
   const [searchTerm, setSearchTerm] = useState('');
   const handleSearch = (term) => {
     setSearchTerm(term);
   };
 
+
+  // 토글 버튼 클릭 시 지도 가시성을 변경하는 함수
+  const toggleMapVisibility = () => {
+    setIsMapVisible(!isMapVisible);
+  };
+
+  const homeVisibility = () => {
+    setIsHomeVisible(!isHomeVisible);
+    setIsMapVisible(!isMapVisible);
+  }
+
+  const get_user_info = [
+    {
+      uid: 1, email: 'sample', password: 1234
+    }
+  ];
+
+  const gettoken =(0);
+
   //리스트 출력시 : ul안에 list_show / 검색기능 확인시 : ul안에 searched_listshow
   return (
     <Router>
       <div className="App">
-        <SearchBar getValue={getValue} setModalState={toggleMapVisibility} toggleMenu={toggleMenu}/>
+        <SearchBar getValue={getValue} setModalState={toggleMapVisibility} toggleMenu={homeVisibility}/>
         <div className="main_container" id='border'>
 
-          {!isMapVisible && ( 
-            <div className='main_list' id='border'> 
+          {!isMapVisible && isHomeVisible && ( 
+            <div className='main_list'> 
               <ul>
                 {searched_listshow} 
               </ul>
             </div>
           )}
           
-          {isMapVisible && (
-            <div className='main_map' id='border' ref={mapContainer} style={{ width: '100vw', height: '100vh'}}></div>
+          {isMapVisible && isHomeVisible && (
+            <div className='main_map' ref={mapContainer} style={{ width: '100vw', height: '100vh'}}></div>
+          )}
+
+          {!isHomeVisible && (
+            <LoginPage 
+              getemail={get_user_info.email} 
+              getpassword={get_user_info.password}
+              getregemail={get_user_info.email}
+              gettoken={gettoken}></LoginPage>
           )}
           
-          <button className="main_togglebtn" onClick={toggleMapVisibility}>
-            {isMapVisible ? '지도 끄기' : '지도 켜기'}
-          </button>
+          {isHomeVisible &&(
+            <button className="main_togglebtn" onClick={toggleMapVisibility}>
+              {isMapVisible ? '지도 끄기' : '지도 켜기'}
+            </button>
+          )}
           
-          <div className={`main_menu ${isMenuOpen ? 'menu-open' : ''}`} id='border'>
-            <br />
-            <Link to="/">로그인</Link>
-            <p> 로그인을 통해 비밀번호를 확인할 수 있습니다.</p>
-            <br />
-            <Link to="/search">Search</Link>
-          </div>
         </div>
 
         <Routes>

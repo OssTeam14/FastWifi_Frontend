@@ -8,14 +8,14 @@ const SearchBar = ({ getValue, setModalState, toggleMenu }) => {
               <input className='w-75 py-1 rounded' onChange={getValue} />
               <div className="p-2 material-symbols-outlined" onClick={() => setModalState(false)}>search</div>
           </div>
-          <div className="col-2 material-symbols-outlined">menu</div>
+          <img className='menubtn' alt='menu' src='img/menu.svg' onClick={toggleMenu}/>
       </div>
 /*    <div className="title" id='border'>
 
       <div className='title_search'>
 
       </div>
-      <img className='menubtn' alt='menu' src='img/menu.svg' onClick={toggleMenu}/>
+      
     </div>*/
     
   );
