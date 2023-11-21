@@ -10,7 +10,14 @@ const SearchBar = ({ getValue, setModalState, toggleMenu }) => {
           </div>
           <img className='menubtn' alt='menu' src='img/menu.svg' onClick={toggleMenu}/>
       </div>
+/*    <div className="title" id='border'>
+
+      <div className='title_search'>
+
+      </div>
+      
+    </div>*/
+    
   );
 }
 export default SearchBar;
-

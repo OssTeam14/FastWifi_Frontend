@@ -5,26 +5,35 @@ import Search from './Search';
 import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
 import LoginPage from './LoginPage';
-import WifiList from './WifiList';
 
-import { getWifiList, login, logout, sendMail, signUp } from './_request';
 import './App.css';
+import { getSuggestedQuery } from '@testing-library/react';
 
 function App() {
   const [searchResult, setSearchResult] = useState('');
   const [inputWord, setWord] = useState("");
-
-  const [wifiList, setWifiList] = useState([]);
-
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // 메뉴의 활성화 여부 확인 변수
   const [isMapVisible, setIsMapVisible] = useState(true); // 지도의 활성화 여부 확인 변수
-  const [isHomeVisible, setIsHomeVisible] = useState(true); // 로그인 템플릿 활성화 여부 확인 변수
-  const [isLoggedIn, setIsLoggedIn] = useState(false); //로그인 여부 확인 
+  const [isHomeVisible, setIsHomeVisible] = useState(true); // 로그인 기능 활성화 여부 확인 변수
   const [detailInfo, setDetailInfo] = useState({ title: '', content: '' });
   const mapContainer = useRef(null);
   const mapRef = useRef(null);
   const infoWindowRef = useRef(null);
   const circleRef = useRef(null);
   const userLocationMarkerRef = useRef(null);
+
+  const data_lists = [
+    {id: 1, location: '기념', wifi_name: 'Kwangwoon_KT', wifi_speed: '180mbps', measure_time: '17:14 / 231024'},
+    {id: 2, location: '기념', wifi_name: 'amanokw', wifi_speed: 'none', measure_time: 'none'},
+    {id: 3, location: '기념', wifi_name: 'amanokw5G'},
+    {id: 4, location: '기념', wifi_name: 'kw_02열람실01'},
+    {id: 5, location: '기념', wifi_name: 'kw_02열람실02'},
+    {id: 6, location: '기념', wifi_name: 'kw_03열람실03'},
+    {id: 7, location: '기념', wifi_name: 'kw_인문열람실01'},
+    {id: 8, location: '비마', wifi_name: 'Kwangwoon_KT'},
+    {id: 9, location: '기념', wifi_name: 'KW_기념관301_강의실'},
+    {id: 10, location: '기념', wifi_name: 'KW_기념관305_강의실'}
+  ];
 
   //마커 정보창 콘텐츠 생성 함수
   const createInfoWindowContent = (info) => {
@@ -171,22 +180,8 @@ function App() {
     }
   }, [isMapVisible]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await getWifiList('새빛관', 2);
-        setWifiList(result);
-      } catch (error) {
-        console.error('Error', error);
-      }
-    };
-    fetchData();
-  }, []);
-
-
-
   //리스트에서 와이파이의 이름만을 보여주는 함수
-  //const list_show = data_lists.map ((wifiname) => <li>{wifiname.wifi_name}</li>);
+  const list_show = data_lists.map ((wifiname) => <li>{wifiname.wifi_name}</li>);
 
   // 검색창에서 입력한 단어 확인
   const [userInput, setUserInput] = useState('');
@@ -196,9 +191,9 @@ function App() {
   };
 
   // 필터링
-  //const searched = data_lists.filter((item) => item.wifi_name.toLowerCase().includes(userInput))
+  const searched = data_lists.filter((item) => item.wifi_name.toLowerCase().includes(userInput))
   // 필터링된 리스트 보여주기
-  //const searched_listshow = searched.map((item) => <p>{item.id} {item.wifi_name}</p>)
+  const searched_listshow = searched.map((item) => <p>{item.id} {item.wifi_name}</p>)
 
   //모달 상태를 저장할 변수와 그 상태를 업데이트 하는 변수
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -213,6 +208,7 @@ function App() {
     setSearchTerm(term);
   };
 
+
   // 토글 버튼 클릭 시 지도 가시성을 변경하는 함수
   const toggleMapVisibility = () => {
     setIsMapVisible(!isMapVisible);
@@ -223,45 +219,12 @@ function App() {
     setIsMapVisible(!isMapVisible);
   }
 
-  const handleLogin = async (email, password) => {
-    try {
-      const result = await login(email, password);
-      if (result.accessToken) {
-        setIsLoggedIn(true);
-      }
-    }
-    catch (error) {
-      console.error('Login Error', error);
-    }
-  };
-
-  const handleLogout = async () => {
-    try {
-      await logout();
-      setIsLoggedIn(false);
-    } catch (error) {
-      console.error('Logout Error', error);
-    }
-  };
-
-  useEffect(() => {
-    const checkLoginStatus = async () => {
-      try {
-        setIsLoggedIn(false);
-      } catch (error) {
-        console.error('Login Status Error', error);
-      }
-    };
-
-    checkLoginStatus();
-  })
   const get_user_info = [
     {
-      uid: 1, email: 'sample', getVerify: 1234
+      uid: 1, email: 'sample', password: 1234
     }
   ];
 
-  const getVerify = ('1234');
   const gettoken =(0);
 
   //리스트 출력시 : ul안에 list_show / 검색기능 확인시 : ul안에 searched_listshow
@@ -269,30 +232,34 @@ function App() {
     <Router>
       <div className="App">
         <SearchBar getValue={getValue} setModalState={toggleMapVisibility} toggleMenu={homeVisibility}/>
-        <div className="main_container">
+        <div className="main_container" id='border'>
 
           {!isMapVisible && isHomeVisible && ( 
-            <WifiList WifiList={wifiList} />
+            <div className='main_list'> 
+              <ul>
+                {searched_listshow} 
+              </ul>
+            </div>
           )}
           
-          {isHomeVisible && (
-            <button className="main_togglebtn" onClick={toggleMapVisibility}>
-              {isMapVisible ? '지도 끄기' : '지도 켜기'}
-            </button>
-          )}
-
           {isMapVisible && isHomeVisible && (
             <div className='main_map' ref={mapContainer} style={{ width: '100vw', height: '100vh'}}></div>
           )}
 
-
           {!isHomeVisible && (
             <LoginPage 
-              onLogin={handleLogin}
-              onLogout={handleLogout}
-              getVerify={getVerify}
+              getemail={get_user_info.email} 
+              getpassword={get_user_info.password}
+              getregemail={get_user_info.email}
               gettoken={gettoken}></LoginPage>
-          )}         
+          )}
+          
+          {isHomeVisible &&(
+            <button className="main_togglebtn" onClick={toggleMapVisibility}>
+              {isMapVisible ? '지도 끄기' : '지도 켜기'}
+            </button>
+          )}
+          
         </div>
 
         <Routes>
