@@ -50,14 +50,20 @@ Web site : <https://github.com/OssTeam14/FastWifi>
 
 ## ⭐ 시작 가이드
 
-### `npm install`
+ ```shell
+ $ npm install
+```
 
 프로젝트에서 요구하는 패키지들을 설치합니다.
 
-### `npm run build`
+```
+ $ npm run build
+```
 
 앱을 프로덕션 모드로 빌드하여 build 폴더에 배치합니다. React를 프로덕션 모드로 올바르게 번들링하고 최적화하여 최상의 성능을 달성합니다.
 
-### `npm run start`
+```
+ $ npm run start
+```
 
 앱을 실행합니다. 
