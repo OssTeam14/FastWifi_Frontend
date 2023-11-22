@@ -1,6 +1,6 @@
 # 광운대학교 와이파이 속도 제공 웹 서비스
 
-## KwFastWifi Back-end
+## KwFastWifi Front-end
 
 ![Static Badge](https://img.shields.io/badge/verson-1.0.1-blue)
 
