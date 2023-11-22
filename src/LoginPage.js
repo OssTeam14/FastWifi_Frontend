@@ -7,9 +7,13 @@ const LoginPage = ({onLogin, onLogout, getVerify, gettoken}) => {
     const [cookies, setCookies, removeCookies] = useCookies(["accessToken"]);
     const [email,setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [verifycode, setVerifyCode] = useState('');
+    const [newpwd, setNewPwd] = useState('');
 
     const [isRegister, setIsRegister] = useState(true);
     const [verifymail, setVerifyMail] = useState(true);
+    const [newRegister, setNewRegister] = useState(false);
+   
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -29,6 +33,18 @@ const LoginPage = ({onLogin, onLogout, getVerify, gettoken}) => {
             onLogout();
         }
     };
+
+    const handleVerifyChange = (e) => {
+        setVerifyCode(e.target.value);
+    }
+
+    const handleNewPwdChange = (e) => {
+        setNewPwd(e.target.value);
+    }
+
+    const handleRegisterClick = () => {
+        getVerify()
+    }
 
     const RegisterVisible = () => {
         setIsRegister(!isRegister);
@@ -71,21 +87,37 @@ const LoginPage = ({onLogin, onLogout, getVerify, gettoken}) => {
                             }}>VERIFY</button>
                         )}
 
-                        {!verifymail && (
+                        {!verifymail && !newRegister &&(
                             <div>
                                 <div className='w-100 h-25 py-2 mt-3'>
                                     <div>인증번호를 입력해주세요</div>
-                                    <input />
+                                    <input onChange={handleVerifyChange}/>
                                 </div> 
+                                <button onClick={() => {
+                                    alert("인증되었습니다.")
+                                    setNewRegister(!newRegister);
+                                }}>인증확인</button>
+                            </div>
+                        )}
+
+                        {!verifymail && newRegister && (
+                            <div>
                                 <div className='w-100 h-25 py-2 mt-3'>
                                     <div> 사용할 비밀번호를 입력해주세요 </div>
-                                    <input />
+                                    <input value={password} onChange={handleNewPwdChange}/>
                                 </div>
-                                <button>회원가입</button>
+                                <button onClick={() => {
+                                    alert("회원가입이 완료되었습니다.")
+                                    window.location.replace("./")
+                                }}>회원가입</button>
                             </div>
                         )}
                         <p></p>
-                        <button onClick={RegisterVisible}>뒤로가기</button>
+                        <button onClick={() => {
+                            setIsRegister(true);
+                            setVerifyMail(true);
+                            setNewRegister(false);
+                        }}>뒤로가기</button>
                     </div>
                 </div>
             )}
