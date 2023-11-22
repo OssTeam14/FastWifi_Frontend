@@ -7,7 +7,9 @@ const LoginPage = ({onLogin, onLogout, getVerify, gettoken}) => {
     const [cookies, setCookies, removeCookies] = useCookies(["accessToken"]);
     const [email,setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [verifymail, setVerifyMail] = useState('');
+
+    const [isRegister, setIsRegister] = useState(true);
+    const [verifymail, setVerifyMail] = useState(true);
 
     const handleEmailChange = (e) => {
         setEmail(e.target.value);
@@ -27,8 +29,6 @@ const LoginPage = ({onLogin, onLogout, getVerify, gettoken}) => {
             onLogout();
         }
     };
-
-    const [isRegister, setIsRegister] = useState(true);
 
     const RegisterVisible = () => {
         setIsRegister(!isRegister);
@@ -60,16 +60,30 @@ const LoginPage = ({onLogin, onLogout, getVerify, gettoken}) => {
                             <div>회원가입에 사용할 이메일을 입력해 주세요</div>
                             <input value={email} onChange={handleEmailChange}/>
                         </div>
-                        <div className='w-100 h-25 py-2 mt-3'>
-                            <div>인증번호를 입력해주세요</div>
-                            <input />
-                        </div> 
-                        <button onClick={()=>{
-                            sendMail(email).then(e=>{
-                                alert("이메일을 발송하였습니다.")
-                            })
+                        
+                        {verifymail && (
+                            <button onClick={()=>{                              
+                                sendMail(email).then(e=>{
+                                    alert("이메일을 발송하였습니다.")
+                                    setVerifyMail(!verifymail);
+                                })
+    
+                            }}>VERIFY</button>
+                        )}
 
-                        }}>VERIFY</button>
+                        {!verifymail && (
+                            <div>
+                                <div className='w-100 h-25 py-2 mt-3'>
+                                    <div>인증번호를 입력해주세요</div>
+                                    <input />
+                                </div> 
+                                <div className='w-100 h-25 py-2 mt-3'>
+                                    <div> 사용할 비밀번호를 입력해주세요 </div>
+                                    <input />
+                                </div>
+                                <button>회원가입</button>
+                            </div>
+                        )}
                         <p></p>
                         <button onClick={RegisterVisible}>뒤로가기</button>
                     </div>
