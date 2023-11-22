@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+# 광운대학교 와이파이 속도 제공 웹 서비스
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## KwFastWifi Back-end
 
-## Available Scripts
+![Static Badge](https://img.shields.io/badge/verson-1.0.1-blue)
 
-In the project directory, you can run:
+## 👥맴버 소개
+- 신창윤 : 프론트엔드 리드 개발자
+- 김민곤 : 프론트엔드 개발자
+- 고현우 : 프론트엔드 개발자
 
-### `npm start`
+## 🔗관련 링크
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
+> Back-end: [KwFastWifiBack](https://github.com/OssTeam14/FastWifi_Backend)   
+Front-end: [KwFastWifiBack](https://github.com/OssTeam14/FastWifi_Front)   
+Web site : <https://github.com/OssTeam14/FastWifi>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 🔎기능 소개
+* 맵 기능
+  > 네이버 맵 API를 가져와 메인 페이지에 지도를 구성하였습니다. 지도에서는 현재 위치와 서버에 저장된 와이파이의 위치를 확인할 수 있는 맵 핀 기능이 구현되어있습니다.
+* 밉 핀 기능
+  > 맵 기능 안의 부속 기능으로, 서버에 저장된 와이파이의 위치를 좀 더 보기 쉽게 표시해주는 역할을 하고 있습니다.
+* 리스트 출력 기능
+  > 맵 만으로는 와이파이 정보를 자세하게 전달하기엔 어려움이 있으므로, 버튼을 통해 지도를 사라지게 한 뒤, 리스트를 통해 현재 서버에 존재하는 와이파이의 정보를 한 눈에 볼 수 있는 리스트를 출력합니다.
+* 검색 기능
+  > 리스트 출력을 통해 와이파이 정보를 확인할 때 사용할 수 있는 기능으로, 상단의 검색바에 자신이 찾고 싶는 와이파이에 포함된 키워드를 통해 검색 결과를 확인할 수 있습니다.
+* 로그인 기능
+  > 와이파이 정보에서 비밀번호 부분을 제공하기 위해 존재하는 기능으로, 로그인에 성공한다면 비밀번호를 제공 받을 수 있습니다.
+* 회원가입 기능
+  > 와이파이 정보에서 비밀번호 부분을 제공하기 위해 존재하는 기능으로, 회원가입을 통해 이메일에서 인증 번호를 받고 인증에 성공한다면 아이디를 만들 수 있는 기능을 제공합니다.
 
-### `npm test`
+### ✨건물별에 따른 학교 와이파이 리스트 제공
+  * 새빛관
+  * 참빛관
+  * 비마관
+  * 비마관
+  * **그외 건물 정보 추후 업데이트 예정**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### ✨학교 와이파이 세부 정보 제공
+  * 다운로드 속도
+  * 업로드 속도
+  * 비밀번호 (권한 필요)
+  * 마지막 업데이트 날짜 
+
+### ✨이메일 인증에 따른 로그인
+  * 학교 이메일 인증 시 자동으로 비밀번호 확인 권한 제공
+
+
+## ⭐ 시작 가이드
+
+### `npm install`
+
+프로젝트에서 요구하는 패키지들을 설치합니다.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+앱을 프로덕션 모드로 빌드하여 build 폴더에 배치합니다. React를 프로덕션 모드로 올바르게 번들링하고 최적화하여 최상의 성능을 달성합니다.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm run start`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+앱을 실행합니다. 
