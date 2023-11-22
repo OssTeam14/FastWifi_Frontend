@@ -6,14 +6,18 @@ import SearchBar from './SearchBar';
 import SearchResult from './SearchResult';
 import LoginPage from './LoginPage';
 import WifiList from './WifiList';
-
+import { CookiesProvider, useCookies } from 'react-cookie'
 import { getWifiList, login, logout, sendMail, signUp } from './_request';
 import './App.css';
+import { removeCookies, setCookies } from './cookie';
 
 function App() {
   const [searchResult, setSearchResult] = useState('');
   const [inputWord, setWord] = useState("");
 
+
+
+  const [cookies, setCookies, removeCookies] = useCookies(["accessToken"]);
   const [wifiList, setWifiList] = useState([]);
 
   const [isMapVisible, setIsMapVisible] = useState(true); // 지도의 활성화 여부 확인 변수
@@ -25,7 +29,7 @@ function App() {
   const infoWindowRef = useRef(null);
   const circleRef = useRef(null);
   const userLocationMarkerRef = useRef(null);
-
+ 
   //마커 정보창 콘텐츠 생성 함수
   const createInfoWindowContent = (info) => {
     return `
@@ -183,6 +187,7 @@ function App() {
     fetchData();
   }, []);
 
+  
 
 
   //리스트에서 와이파이의 이름만을 보여주는 함수
@@ -228,17 +233,21 @@ function App() {
       const result = await login(email, password);
       if (result.accessToken) {
         setIsLoggedIn(true);
+        setCookies("accessToken", result.accessToken);
+        window.location.replace("./")
       }
     }
     catch (error) {
+      console.log("아이디나 비밀번호가 틀립니다");
       console.error('Login Error', error);
     }
   };
 
   const handleLogout = async () => {
     try {
-      await logout();
-      setIsLoggedIn(false);
+      //await logout();
+      //setIsLoggedIn(false);
+      removeCookies("accessToken");
     } catch (error) {
       console.error('Logout Error', error);
     }
@@ -255,6 +264,7 @@ function App() {
 
     checkLoginStatus();
   })
+
   const get_user_info = [
     {
       uid: 1, email: 'sample', getVerify: 1234
@@ -272,8 +282,10 @@ function App() {
         <div className="main_container">
 
           {!isMapVisible && isHomeVisible && ( 
-            <WifiList WifiList={wifiList} />
+            <WifiList WifiList={userInput === "" ? wifiList : wifiList.filter(e => e.name.includes(userInput))} />
           )}
+
+          {!isMapVisible}
           
           {isHomeVisible && (
             <button className="main_togglebtn" onClick={toggleMapVisibility}>
