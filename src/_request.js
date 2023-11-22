@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const MAINURL =  "http://3.35.132.61";
+const MAINURL =  "";
 
 /**
  * 이메일 사용 가능 여부
@@ -56,6 +56,10 @@ export async function emailVerification(email, code){
 
         const res = await axios.post(`${MAINURL}/verification/verify`,{
             email, code, "verifyingType" : "SIGN_UP"
+        },{
+            headers : {
+                "Content-Type" : "application/json"
+            },
         })
         return res.data === "인증 되었습니다";
     }
@@ -76,6 +80,10 @@ export async function  signUp(email, password){
 
         const res = await axios.post(`${MAINURL}/auth/sign-up`,{
             email, password
+        },{
+            headers : {
+                "Content-Type" : "application/json"
+            },
         })
         return res.data === "회원가입 완료";
     }
@@ -95,6 +103,10 @@ export async function login(email, password){
     try{
         const res = await axios.post(`${MAINURL}/auth/login`,{
             email, password
+        },{
+            headers : {
+                "Content-Type" : "application/json"
+            },
         })
 
         return res.data;
@@ -126,6 +138,10 @@ export async function getWifi(buildingName,floor, wifiName){
     try{
         const res = await axios.post(`${MAINURL}/wifi`,{
             buildingName, floor, wifiName
+        },{
+            headers : {
+                "Content-Type" : "application/json"
+            },
         })
 
         return res.data;
@@ -144,6 +160,10 @@ export async function getWifiList(buildingName,floor){
     try{
         const res = await axios.post(`${MAINURL}/wifiList`,{
             buildingName, floor
+        },{
+            headers : {
+                "Content-Type" : "application/json"
+            },
         })
         return res.data;
     }
@@ -163,6 +183,10 @@ export async function getWifiPwd(buildingName,floor,wifiName){
     try{
         const res = await axios.post(`${MAINURL}/pwd`,{
             buildingName, floor
+        },{
+            headers : {
+                "Content-Type" : "application/json"
+            },
         })
         return res.data;
     }
