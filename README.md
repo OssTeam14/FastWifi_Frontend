@@ -5,9 +5,27 @@
 ![Static Badge](https://img.shields.io/badge/verson-1.0.1-blue)
 
 ## 👥맴버 소개
-- 신창윤 : 프론트엔드 리드 개발자
-- 김민곤 : 프론트엔드 개발자
-- 고현우 : 프론트엔드 개발자
+<table>
+    <thead>
+        <tr>
+            <th style="text-align:center;"><a href="https://https://github.com/aarmia">신창윤</a></th>
+            <th style="text-align:center;"><a href="https://https://github.com/minggong222">김민곤</a></th>
+             <th style="text-align:center;"><a href="https://https://github.com/Sparkle658">고현우</a></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><img src="https://avatars.githubusercontent.com/u/50602778?v=4" width="150"/></td>
+            <td><img src="https://avatars.githubusercontent.com/u/144299899?v=4" width="150"/></td>
+            <td><img src="https://avatars.githubusercontent.com/u/144135784?v=4" width="150"/></td>
+        </tr>
+        <tr>
+            <td style="text-align:center;">Front-End Leader</td>
+            <td style="text-align:center;">Front-End</td>
+            <td style="text-align:center;">Front-End</td>
+        </tr>
+    </tbody>
+</table>
 
 ## 🔗관련 링크
 
@@ -29,22 +47,6 @@ Web site : <https://github.com/OssTeam14/FastWifi>
   > 와이파이 정보에서 비밀번호 부분을 제공하기 위해 존재하는 기능으로, 로그인에 성공한다면 비밀번호를 제공 받을 수 있습니다.
 * 회원가입 기능
   > 와이파이 정보에서 비밀번호 부분을 제공하기 위해 존재하는 기능으로, 회원가입을 통해 이메일에서 인증 번호를 받고 인증에 성공한다면 아이디를 만들 수 있는 기능을 제공합니다.
-
-### ✨건물별에 따른 학교 와이파이 리스트 제공
-  * 새빛관
-  * 참빛관
-  * 비마관
-  * 비마관
-  * **그외 건물 정보 추후 업데이트 예정**
-
-### ✨학교 와이파이 세부 정보 제공
-  * 다운로드 속도
-  * 업로드 속도
-  * 비밀번호 (권한 필요)
-  * 마지막 업데이트 날짜 
-
-### ✨이메일 인증에 따른 로그인
-  * 학교 이메일 인증 시 자동으로 비밀번호 확인 권한 제공
 
 
 ## ⭐ 시작 가이드
