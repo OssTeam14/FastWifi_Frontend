@@ -3,20 +3,14 @@ import { HashRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import "bootstrap/scss/bootstrap.scss";
 import Search from './Search';
 import SearchBar from './SearchBar';
-import SearchResult from './SearchResult';
 import LoginPage from './LoginPage';
 import WifiList from './WifiList';
 import { CookiesProvider, useCookies } from 'react-cookie'
-import { getWifiList, login, logout, sendMail, signUp } from './_request';
+import { emailVerification, getWifiList, login, logout, sendMail, signUp } from './_request';
 import './App.css';
 import { removeCookies, setCookies } from './cookie';
 
 function App() {
-  const [searchResult, setSearchResult] = useState('');
-  const [inputWord, setWord] = useState("");
-
-
-
   const [cookies, setCookies, removeCookies] = useCookies(["accessToken"]);
   const [wifiList, setWifiList] = useState([]);
 
@@ -187,12 +181,6 @@ function App() {
     fetchData();
   }, []);
 
-  
-
-
-  //리스트에서 와이파이의 이름만을 보여주는 함수
-  //const list_show = data_lists.map ((wifiname) => <li>{wifiname.wifi_name}</li>);
-
   // 검색창에서 입력한 단어 확인
   const [userInput, setUserInput] = useState('');
   // 대소문자 구별 없애기
@@ -200,22 +188,12 @@ function App() {
     setUserInput(e.target.value.toLowerCase())
   };
 
-  // 필터링
-  //const searched = data_lists.filter((item) => item.wifi_name.toLowerCase().includes(userInput))
-  // 필터링된 리스트 보여주기
-  //const searched_listshow = searched.map((item) => <p>{item.id} {item.wifi_name}</p>)
-
   //모달 상태를 저장할 변수와 그 상태를 업데이트 하는 변수
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   //모달을 열거나 닫는 함수
   const setModalState = (isOpen) => {
     setIsModalOpen(isOpen);
-  };
-
-  const [searchTerm, setSearchTerm] = useState('');
-  const handleSearch = (term) => {
-    setSearchTerm(term);
   };
 
   // 토글 버튼 클릭 시 지도 가시성을 변경하는 함수
@@ -234,12 +212,14 @@ function App() {
       if (result.accessToken) {
         setIsLoggedIn(true);
         setCookies("accessToken", result.accessToken);
+        alert("로그인 되었습니다!");
         window.location.replace("./")
+      } else {
+        alert("아이디나 비밀번호가 틀렸습니다!");
       }
     }
     catch (error) {
-      console.log("아이디나 비밀번호가 틀립니다");
-      console.error('Login Error', error);
+      alert("아이디나 비밀번호가 틀렸습니다!");
     }
   };
 
@@ -271,8 +251,6 @@ function App() {
     }
   ];
 
-  const getVerify = ('1234');
-  const gettoken =(0);
 
   //리스트 출력시 : ul안에 list_show / 검색기능 확인시 : ul안에 searched_listshow
   return (
@@ -302,21 +280,12 @@ function App() {
             <LoginPage 
               onLogin={handleLogin}
               onLogout={handleLogout}
-              getVerify={getVerify}
-              gettoken={gettoken}></LoginPage>
+              ></LoginPage>
           )}         
         </div>
 
         <Routes>
-          <Route path="/" element={<h2>Home</h2>} />
-          <Route
-            path="/search"
-            element={<Search onSearch={handleSearch} />}
-          />
-          <Route
-            path="/search-result"
-            element={<SearchResult result={searchResult} />}
-          />
+          <Route path="/" element={<h5>LIST</h5>} />
         </Routes>
       </div>
     </Router>
