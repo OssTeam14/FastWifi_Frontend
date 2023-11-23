@@ -98,6 +98,7 @@ const LoginPage = ({onLogin, onLogout}) => {
                                 <button onClick={() => {
                                     emailVerification(email, verifycode)
                                     .then((e) => {
+                                        console.log(e)
                                         if (e) {
                                             alert("인증되었습니다.")
                                             setNewRegister(!newRegister);

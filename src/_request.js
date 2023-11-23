@@ -57,7 +57,7 @@ export async function emailVerification(email, code){
         const res = await axios.post(`${MAINURL}/verification/verify`,{
             email, code, "verifyingType" : "SIGN_UP"
         })
-        return res.data === "인증 되었습니다";
+        return res.status === 200
     }
     catch(e){
         return false;
