@@ -8,9 +8,9 @@
 <table>
     <thead>
         <tr>
-            <th style="text-align:center;"><a href="https://https://github.com/aarmia">신창윤</a></th>
-            <th style="text-align:center;"><a href="https://https://github.com/minggong222">김민곤</a></th>
-             <th style="text-align:center;"><a href="https://https://github.com/Sparkle658">고현우</a></th>
+            <th style="text-align:center;"><a href="https://github.com/aarmia">신창윤</a></th>
+            <th style="text-align:center;"><a href="https://github.com/minggong222">김민곤</a></th>
+             <th style="text-align:center;"><a href="https://github.com/Sparkle658">고현우</a></th>
         </tr>
     </thead>
     <tbody>
