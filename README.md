@@ -31,7 +31,7 @@
 
 > Back-end: [KwFastWifiBack](https://github.com/OssTeam14/FastWifi_Backend)   
 Front-end: [KwFastWifiFront](https://github.com/OssTeam14/FastWifi_Front)   
-Web site : <https://github.com/OssTeam14/FastWifi>
+Web site : <https://ossteam14.github.io/KwFastWiFi/>
 
 ## 🔎기능 소개
 ### ✨ 맵 기능
