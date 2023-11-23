@@ -30,7 +30,7 @@
 ## 🔗관련 링크
 
 > Back-end: [KwFastWifiBack](https://github.com/OssTeam14/FastWifi_Backend)   
-Front-end: [KwFastWifiBack](https://github.com/OssTeam14/FastWifi_Front)   
+Front-end: [KwFastWifiFront](https://github.com/OssTeam14/FastWifi_Front)   
 Web site : <https://github.com/OssTeam14/FastWifi>
 
 ## 🔎기능 소개
