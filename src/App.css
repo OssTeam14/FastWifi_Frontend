@@ -33,16 +33,6 @@
   align-items: center;
 }
 
-/*.title_child {
-  width: 15%;
-  height: 45px;
-  position: absolute;
-  font-weight: bolder;
-  font-size: 24px;
-  cursor: pointer;
-  padding-top: 10px;
-}*/
-
 .title_search {
   width: 50%;
   position: absolute;
@@ -80,6 +70,11 @@
 
 #border {
   border: solid 3px;
+}
+
+#tools {
+  font-size: 30px;
+  margin-left: 10%;
 }
 
 .main_container {
@@ -161,6 +156,82 @@ li {
   list-style: none;
 }
 
+.td_cursor {
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+/* 로그인 및 회원가입 폼 컨테이너 */
+.w-100.h-50 {
+  width: 100%;
+  max-width: 80vh; 
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 auto; 
+}
+
+/* 입력 필드 */
+input[type="text"],
+input[type="password"],input[value='email']{
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+button {
+  width: 30%;
+  padding: 10px;
+  margin: 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+/*  추가된 wifi리스트  */
+
+.main_list {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 10vh;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.table th {
+  background-color: #333;
+  color: white;
+}
 
 @keyframes App-logo-spin {
   from {

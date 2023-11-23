@@ -119,10 +119,11 @@ export async function logout() {
 
 /**
  * 와이파이 하나 얻기
- * @param {string} buildingName
- * @param {number}floor
- * @param {string}wifiName
- * @return {Promise<{name : string, downloadSpeed : number, uploadSpeed : number, lastUpdate : string}|null>}
+ * @param {string} wifiName
+ * @param {number}downloadSpeed
+ * @param {number}uploadSpeed
+ * @param {string}lastUpdate
+ * @return {Promise<{wifiName : string, downloadSpeed : number, uploadSpeed : number, lastUpdate : string}|null>}
  */
 export async function getWifi(buildingName,floor, wifiName){
     try{
