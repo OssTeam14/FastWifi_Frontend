@@ -125,7 +125,7 @@ export async function logout() {
  * @param {string}lastUpdate
  * @return {Promise<{wifiName : string, downloadSpeed : number, uploadSpeed : number, lastUpdate : string}|null>}
  */
-export async function getWifi(buildingName,floor, wifiName){
+export async function getWifi(buildingName, floor, wifiName){
     try{
         const res = await axios.post(`${MAINURL}/wifi`,{
             buildingName, floor, wifiName
