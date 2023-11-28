@@ -206,6 +206,10 @@ function App() {
     setIsMapVisible(!isMapVisible);
   }
 
+  const handlestatus = () => {
+    setIsLoggedIn(!isLoggedIn);
+  }
+
   const handleLogin = async (email, password) => {
     try {
       const result = await login(email, password);
@@ -226,8 +230,9 @@ function App() {
   const handleLogout = async () => {
     try {
       //await logout();
-      //setIsLoggedIn(false);
+      setIsLoggedIn(false);
       removeCookies("accessToken");
+      handlestatus();
     } catch (error) {
       console.error('Logout Error', error);
     }
@@ -236,7 +241,7 @@ function App() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        setIsLoggedIn(false);
+        setIsLoggedIn(true);
       } catch (error) {
         console.error('Login Status Error', error);
       }
@@ -245,26 +250,16 @@ function App() {
     checkLoginStatus();
   })
 
-  const get_user_info = [
-    {
-      uid: 1, email: 'sample', getVerify: 1234
-    }
-  ];
-
-
-  //리스트 출력시 : ul안에 list_show / 검색기능 확인시 : ul안에 searched_listshow
   return (
     <Router>
       <div className="App">
-        <SearchBar getValue={getValue} setModalState={toggleMapVisibility} toggleMenu={homeVisibility}/>
+        <SearchBar getValue={getValue} setModalState={toggleMapVisibility} toggleMenu={homeVisibility} loginstatus={isLoggedIn}/>
         <div className="main_container">
 
           {!isMapVisible && isHomeVisible && ( 
             <WifiList WifiList={userInput === "" ? wifiList : wifiList.filter(e => e.name.includes(userInput))} />
           )}
 
-          {!isMapVisible}
-          
           {isHomeVisible && (
             <button className="main_togglebtn" onClick={toggleMapVisibility}>
               {isMapVisible ? '지도 끄기' : '지도 켜기'}

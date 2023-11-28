@@ -19,6 +19,7 @@
 
 .info_window { /* Marker에서 정보를 보여주는 창의 스타일 정의 (추가2)*/
   width: 200px;
+  height : 400px;
   padding: 10px;
 }
 
@@ -231,6 +232,13 @@ button:hover {
 .table th {
   background-color: #333;
   color: white;
+}
+
+.islogin {
+  margin-left: 80%;
+  position: absolute;
+  color: green;
+  font-weight: bolder;
 }
 
 @keyframes App-logo-spin {

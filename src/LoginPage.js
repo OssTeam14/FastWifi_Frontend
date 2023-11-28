@@ -29,9 +29,7 @@ const LoginPage = ({onLogin, onLogout}) => {
     };
 
     const handleLogoutClick = () => {
-        if (onLogout) {
-            onLogout();
-        }
+        onLogout();
     };
 
     const handleVerifyChange = (e) => {
