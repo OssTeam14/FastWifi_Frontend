@@ -213,7 +213,7 @@ button:hover {
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 10vh;
+  margin-top: 12vh;
 }
 
 .table {
@@ -239,6 +239,16 @@ button:hover {
   position: absolute;
   color: green;
   font-weight: bolder;
+}
+
+.logo_img {
+  height : 91.2px;
+  width: 120px;
+}
+
+.return_btn {
+  position: fixed;
+  bottom: 0;
 }
 
 @keyframes App-logo-spin {

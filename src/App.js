@@ -13,6 +13,8 @@ import { removeCookies, setCookies } from './cookie';
 function App() {
   const [cookies, setCookies, removeCookies] = useCookies(["accessToken"]);
   const [wifiList, setWifiList] = useState([]);
+  const [wifiname, setWifiName] = useState();
+  const [floor, setFloor] = useState();
 
   const [isMapVisible, setIsMapVisible] = useState(true); // 지도의 활성화 여부 확인 변수
   const [isHomeVisible, setIsHomeVisible] = useState(true); // 로그인 템플릿 활성화 여부 확인 변수
@@ -23,79 +25,38 @@ function App() {
   const infoWindowRef = useRef(null);
   const circleRef = useRef(null);
   const userLocationMarkerRef = useRef(null);
+
+  const [isSB1, setIsSB1] = useState(false);
+  const [isSB2, setIsSB2] = useState(false);
+  const [isSB3, setIsSB3] = useState(false);
+  const [isSB4, setIsSB4] = useState(false);
  
-  //마커 정보창 콘텐츠 생성 함수
-  const createInfoWindowContent = (info) => {
-    return `
-      <div class="info_window">
-        <h4>${info.title || '리스트 제목'}</h4>
-        <ul>
-          <li><button onclick="window.updateDetailInfo('${info.button1}')">${info.button1}</button></li>
-          <li><button onclick="window.updateDetailInfo('${info.button2}')">${info.button2}</button></li>
-          <li><button onclick="window.updateDetailInfo('${info.button3}')">${info.button3}</button></li>
-        </ul>
-        ${info.content ? `<p>${info.content}</p>` : ''}
-        <button onclick="window.closeInfoWindow()">닫기</button>
-      </div>
-    `;
-  };
 
   //마커 정보 정의
   const markerInfoArray = [
     {
       position: new window.naver.maps.LatLng(37.61964049095391, 127.0600900465389),
-      title: '비마 1',
-      content: '세부정보 1',
-      button1: '비마 1',
-      button2: '비마 2',
-      button3: '비마 3',
+      building: "새빛관",
+      setIsSB: setIsSB2,
     },
     {
       position: new window.naver.maps.LatLng(37.61978874889574, 127.06088022970086),
-      title: '새빛 1',
-      content: '세부정보 1',
-      button1: '새빛 1',
-      button2: '새빛 2',
-      button3: '새빛 3',
+      building: "비마관",
+      setIsSB: setIsSB1,
     },
     {
       position: new window.naver.maps.LatLng(37.619270641711566, 127.06095626449199),
-      title: '참빛 1',
-      content: '세부정보 1',
-      button1: '참빛 1',
-      button2: '참빛 2',
-      button3: '참빛 3',
+      building: "참빛관",
+      setIsSB: setIsSB3,
     },
     {
       position: new window.naver.maps.LatLng(37.62002409207653, 127.05873676492713),
-      title: '기념 1',
-      content: '세부정보 1',
-      button1: '기념 1',
-      button2: '기념 2',
-      button3: '기념 3',
+      building: "기념관",
+      setIsSB: setIsSB4,
     }
   ]
 
-  // 세부 정보를 업데이트하는 함수
-  const updateDetailInfo = (item) => {
-    const details = {
-      '항목 1': { title: '항목 1', content: '세부정보 1' },
-      '항목 2': { title: '항목 2', content: '세부정보 2' },
-      '항목 3': { title: '항목 3', content: '세부정보 3' },
-    };
-    setDetailInfo(details[item]);
-    if (infoWindowRef.current) {
-      infoWindowRef.current.setContent(createInfoWindowContent(details[item]));
-    }
-  };
 
-  // 인포윈도우를 닫는 함수
-  const closeInfoWindow = () => {
-    setDetailInfo({ title: '', content: '' }); // 상태를 초기화합니다.
-    if (infoWindowRef.current) {
-      infoWindowRef.current.close();
-    }
-  };
 
   useEffect(() => {
     if (window.naver && window.naver.maps && isMapVisible) { // isMapVisible 상태에 따라 지도 생성 여부 판단
@@ -110,22 +71,16 @@ function App() {
   
       // 마커와 인포윈도우 생성
       markerInfoArray.forEach((markerInfo) => {
+        const {position, building, setIsSB} = markerInfo;
         const marker = new window.naver.maps.Marker({
             position: markerInfo.position,
             map: mapRef.current,
           });
   
-        const infoWindow = new window.naver.maps.InfoWindow({
-          content: createInfoWindowContent(markerInfo),
-          backgroundColor: "#fff",
-          borderColor: "#333",
-          borderWidth: 2,
-         });
-  
         window.naver.maps.Event.addListener(marker, 'click', () => {
-          if (infoWindow) {
-            infoWindow.open(mapRef.current, marker);
-          }
+          setWifiName(building);
+          setIsMapVisible(false);
+          setIsSB(true);
         });
       });
 
@@ -164,22 +119,20 @@ function App() {
         });
       }
 
-      window.updateDetailInfo = updateDetailInfo;
-      window.closeInfoWindow = closeInfoWindow;
     }
-  }, [isMapVisible]);
+  }, [isMapVisible, setWifiName]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getWifiList('새빛관', 2);
+        const result = await getWifiList(wifiname, floor);
         setWifiList(result);
       } catch (error) {
         console.error('Error', error);
       }
     };
     fetchData();
-  }, []);
+  }, [wifiname, floor]);
 
   // 검색창에서 입력한 단어 확인
   const [userInput, setUserInput] = useState('');
@@ -207,7 +160,7 @@ function App() {
   }
 
   const handlestatus = () => {
-    setIsLoggedIn(!isLoggedIn);
+    setIsLoggedIn((prev) => !prev);
   }
 
   const handleLogin = async (email, password) => {
@@ -230,9 +183,8 @@ function App() {
   const handleLogout = async () => {
     try {
       //await logout();
-      setIsLoggedIn(false);
       removeCookies("accessToken");
-      handlestatus();
+      setIsLoggedIn(false);
     } catch (error) {
       console.error('Logout Error', error);
     }
@@ -241,7 +193,7 @@ function App() {
   useEffect(() => {
     const checkLoginStatus = async () => {
       try {
-        setIsLoggedIn(true);
+
       } catch (error) {
         console.error('Login Status Error', error);
       }
@@ -257,11 +209,23 @@ function App() {
         <div className="main_container">
 
           {!isMapVisible && isHomeVisible && ( 
-            <WifiList WifiList={userInput === "" ? wifiList : wifiList.filter(e => e.name.includes(userInput))} />
+            <WifiList WifiList={userInput === "" ? wifiList : wifiList.filter(e => e.name.includes(userInput))} 
+            setWifiName={setWifiName} 
+            setFloor={setFloor} 
+            set1={isSB1}
+            set2={isSB2}
+            set3={isSB3}
+            set4={isSB4}/>
           )}
 
           {isHomeVisible && (
-            <button className="main_togglebtn" onClick={toggleMapVisibility}>
+            <button className="main_togglebtn" onClick={() =>{
+              toggleMapVisibility();
+              setIsSB1(false);
+              setIsSB2(false);
+              setIsSB3(false);
+              setIsSB4(false);
+            }}>
               {isMapVisible ? '지도 끄기' : '지도 켜기'}
             </button>
           )}
